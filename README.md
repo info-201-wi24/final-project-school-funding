@@ -1,7 +1,7 @@
-# Title of Your Final Project Here 
+# US School Funding Analysis
 ## INFO 201 "Foundational Skills for Data Science"
 
-Authors: Your names here
+Authors: Ellie Ballew, Leah Jia
 
 
 For the Final Project -- Data Wrangling, add the following to this code repository:
