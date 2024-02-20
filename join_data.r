@@ -13,7 +13,7 @@ df_funding <- df_funding %>%
   summarise(TOTALREV = sum(TOTALREV, na.rm = TRUE), TOTALEXP = sum(TOTALEXP, na.rm = TRUE), .groups = "drop")
 
 result <- df_funding %>%
-  inner_join(df_demo, by = c("STATE" = "stname", "YRDATA" = "yearref"))
+  inner_join(df_demo, by = c("STATE" = "stname", "YRDATA" = "year"))
 
 # check res before writing to file
 if (nrow(result) < 20000) {
