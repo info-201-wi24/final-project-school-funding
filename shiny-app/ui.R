@@ -2,7 +2,7 @@
 
 ## OVERVIEW TAB INFO
 
-overview_tab <- tabPanel("Overview Tab Title",
+overview_tab <- tabPanel("Project Introduction",
    h1("Disparities in Funding between School Districts in 2016"),
    p("Our project is concerned with disparities in school funding across school districts as it relates to the demographic makeup of the states the schools are in. Our datasets can be found here:
 https://www.kaggle.com/datasets/noriuk/us-educational-finances
