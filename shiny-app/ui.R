@@ -3,8 +3,12 @@
 ## OVERVIEW TAB INFO
 
 overview_tab <- tabPanel("Overview Tab Title",
-   h1("Some title"),
-   p("some explanation")
+   h1("Disparities in Funding between School Districts in 2016"),
+   p("Our project is concerned with disparities in school funding across school districts as it relates to the demographic makeup of the states the schools are in. Our datasets can be found here:
+https://www.kaggle.com/datasets/noriuk/us-educational-finances
+https://www.nber.org/research/data/us-intercensal-county-population-data-age-sex-race-and-hispanic-origin
+Both of these datasets were sourced from the US Census Bureau, which brings with it some caveats. For one, while this data is far-reaching, it is not all-encompassing. Some people and areas are less likely to be counted in this dataset due to the fact that the Census is a time-sensitive operation that can't be overly thorough in its counting if they don't have enough people tallying a certain area. In addition, the Census is a government program, with a history of dealing poorly with minority status groups in the United States starting from its inception. Thus many of the people interviewed for the program may be skeptical of the process itself, and not give fully accurate testimony about themselves and their family.
+")
 )
 
 ## VIZ 1 TAB INFO
