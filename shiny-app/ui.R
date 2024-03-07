@@ -71,13 +71,13 @@ viz_3_tab <- tabPanel("Viz 3 tab title",
 ## CONCLUSIONS TAB INFO
 
 conclusion_tab <- tabPanel("Conclusion Tab Title",
- h1("Some title"),
- p("some conclusions")
+ h1("Challenges"),
+ p("The hardest piece has been mixing the data in a way that’s manageable but still conveys something meaningful about the information being presented. Since both codesets are so large, trimming and combining them has been a big pain.")
 )
 
 
 
-ui <- navbarPage("Example Project Title",
+ui <- navbarPage("US School Finding",
   overview_tab,
   viz_1_tab,
   viz_2_tab,
