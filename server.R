@@ -9,7 +9,8 @@ server <- function(input, output, session) {
   observe({
     updateSelectInput(session, "stateSelect1", choices = sort(unique(combined_data$STATE)))
     updateSelectInput(session, "demographicSelect", choices = colnames(combined_data))
-    #updateSelectInput(session,)
+    updateSelectInput(session, "raceSelect", choices = colnames(combined_data %>%
+                                                      select(c(wa_male:na_female))))
   })
   
   output$fundingEnrollmentPlot <- renderPlotly({
@@ -58,9 +59,16 @@ server <- function(input, output, session) {
           "\nAverage Federal Funding:", summaryInfo$AvgFederalFunding)
   })
   
-  #output$schoolDistrictPlot <- renderPlotly({
+  output$revenueRacePlot <- renderPlotly({
+    input$update3
     
+    selectedRace <- input$raceSelect
+    if(is.null(selectedRace)) return(NULL)
     
-   # selectedRace <- input$
- # })
+    plot_ly(data = combined_data, x = as.formula(paste0("~`", selectedRace, "`")), y = ~TOTALREV, type = 'scatter',
+            color = ~STATE) %>%
+      layout(title = "Total Revenue vs. Racial Population",
+             xaxis = list(title = "Racial Pop"),
+             yaxis = list(title = "Total Revenue"))
+  })
 }
