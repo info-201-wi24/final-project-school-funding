@@ -5,12 +5,10 @@ library(plotly)
 
 server <- function(input, output, session) {
   combined_data <- read.csv("joined_ny_data.csv")
-  combined_data <- read.csv("joined_ny_data.csv")
   
   observe({
     updateSelectInput(session, "stateSelect1", choices = sort(unique(combined_data$STATE)))
     updateSelectInput(session, "demographicSelect", choices = colnames(combined_data))
-    #updateSelectInput(session,)
   })
   
   output$fundingEnrollmentPlot <- renderPlotly({
@@ -18,10 +16,9 @@ server <- function(input, output, session) {
     isolate({
       selectedStates <- input$stateSelect1
       if (length(selectedStates) == 0) return(NULL)
-      if (length(selectedStates) == 0) return(NULL)
       
-      filteredData <- combined_data %>%
-      filteredData <- combined_data %>%
+      # Filter the data based on selected states
+      filteredData <- result %>%
         filter(STATE %in% selectedStates)
       
       plot_ly(data = filteredData, x = ~ENROLL, y = ~TOTALREV, type = 'scatter', mode = 'markers',
@@ -39,7 +36,6 @@ server <- function(input, output, session) {
     if(is.null(selectedColumn)) return(NULL)
     
     plot_ly(data = combined_data, x = ~STATE, y = as.formula(paste0("~`", selectedColumn, "`")),
-    plot_ly(data = combined_data, x = ~STATE, y = as.formula(paste0("~`", selectedColumn, "`")),
             type = 'bar', color = ~STATE, text = ~paste(selectedColumn, ":", .data[[selectedColumn]])) %>%
       layout(title = paste("State-wise", selectedColumn))
   })
@@ -48,7 +44,6 @@ server <- function(input, output, session) {
     req(input$stateSelect1)
     selectedState <- input$stateSelect1[1]
     
-    summaryInfo <- combined_data %>%
     summaryInfo <- combined_data %>%
       filter(STATE == selectedState) %>%
       summarise(
