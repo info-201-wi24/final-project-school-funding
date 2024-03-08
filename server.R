@@ -56,7 +56,7 @@ server <- function(input, output, session) {
   })
 
   output$demographicPlot <- renderPlotly({
-    req(input$update2) # Ensure 'Update' button has been clicked
+    req(input$update2)
     
     selectedColumn <- input$demographicSelect
     if(is.null(selectedColumn)) return(NULL)
