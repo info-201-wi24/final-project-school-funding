@@ -7,8 +7,9 @@ server <- function(input, output, session) {
   combined_data <- read.csv("joined_ny_data.csv")
   
   observe({
-    updateSelectInput(session, "stateSelect1", choices = sort(unique(combined_data$STATE)))
-    updateSelectInput(session, "demographicSelect", choices = colnames(combined_data))
+    updateSelectInput(session, "stateSelect1", choices = sort(unique(result$STATE)))
+    updateSelectInput(session, "demographicSelect", choices = colnames(result))
+    #updateSelectInput(session,)
   })
   
   output$fundingEnrollmentPlot <- renderPlotly({
@@ -56,4 +57,10 @@ server <- function(input, output, session) {
           "\nMedian Total Revenue:", summaryInfo$MedianTotalRev,
           "\nAverage Federal Funding:", summaryInfo$AvgFederalFunding)
   })
+  
+  #output$schoolDistrictPlot <- renderPlotly({
+    
+    
+   # selectedRace <- input$
+ # })
 }
