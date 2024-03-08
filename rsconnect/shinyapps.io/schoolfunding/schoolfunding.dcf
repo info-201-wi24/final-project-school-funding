@@ -5,7 +5,7 @@ account: schoolfunding
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11421858
-bundleId: 8347418
+bundleId: 8347837
 url: https://schoolfunding.shinyapps.io/schoolfunding/
 version: 1
 asMultiple: FALSE
