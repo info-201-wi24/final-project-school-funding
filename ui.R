@@ -40,8 +40,8 @@ viz_2_tab <- tabPanel("Funding by Demographics",
 ## VIZ 3 TAB INFO
 
 viz_3_sidebar <- sidebarPanel(
-  #selectInput()
-  #selectInput()
+  h2("Options for graph"),
+  #TODO: Put inputs for modifying graph here
 )
 
 viz_3_main_panel <- mainPanel(
