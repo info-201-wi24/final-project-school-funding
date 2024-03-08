@@ -34,6 +34,7 @@ server <- function(input, output, session) {
   observe({
     updateSelectInput(session, "stateSelect1", choices = sort(unique(result$STATE)))
     updateSelectInput(session, "demographicSelect", choices = colnames(result))
+    #updateSelectInput(session,)
   })
   
   output$fundingEnrollmentPlot <- renderPlotly({
@@ -83,4 +84,10 @@ server <- function(input, output, session) {
           "\nMedian Total Revenue:", summaryInfo$MedianTotalRev,
           "\nAverage Federal Funding:", summaryInfo$AvgFederalFunding)
   })
+  
+  #output$schoolDistrictPlot <- renderPlotly({
+    
+    
+   # selectedRace <- input$
+ # })
 }
