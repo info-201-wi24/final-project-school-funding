@@ -4,50 +4,22 @@ library(ggplot2)
 library(plotly)
 
 server <- function(input, output, session) {
-  df_funding <- read.csv("DistrictFunding2016.csv")
-  df_demo <- read.csv("DistrictDemographics2016.csv")
-  
-  df_funding_summarized <- df_funding %>%
-    select(-NAME, -YRDATA) %>%
-    group_by(STATE) %>%
-    summarise(across(c(ENROLL:TOTALEXP), sum, na.rm = TRUE))
-  
-  df_demo_summarized <- df_demo %>%
-    group_by(stname) %>%
-    summarise(across(c(tot_pop:hnac_male, hnac_female), sum, na.rm = TRUE))
-  
-  result <- df_funding_summarized %>%
-    inner_join(df_demo_summarized, by = c("STATE" = "stname"))
-  
-  quantiles <- quantile(result$TFEDREV / result$TOTALREV, probs = c(0.33, 0.66))
-  lower <- quantiles[1]
-  upper <- quantiles[2]
-  
-  result <- result %>%
-    mutate(funding_level = case_when(
-      TFEDREV / TOTALREV < lower ~ "Low",
-      TFEDREV / TOTALREV >= lower & TFEDREV / TOTALREV <= upper ~ "Medium",
-      TFEDREV / TOTALREV > upper ~ "High"
-    ),
-    male_female_ratio = tot_male / tot_female)
+  combined_data <- read.csv("joined_ny_data.csv")
   
   observe({
-    updateSelectInput(session, "stateSelect1", choices = sort(unique(result$STATE)))
-    updateSelectInput(session, "demographicSelect", choices = colnames(result))
-    #updateSelectInput(session,)
+    updateSelectInput(session, "stateSelect1", choices = sort(unique(combined_data$STATE)))
+    updateSelectInput(session, "demographicSelect", choices = colnames(combined_data))
   })
   
   output$fundingEnrollmentPlot <- renderPlotly({
     input$update1
     isolate({
       selectedStates <- input$stateSelect1
-      if (length(selectedStates) == 0) return(NULL) # No selection made
+      if (length(selectedStates) == 0) return(NULL)
       
-      # Filter the data based on selected states
-      filteredData <- result %>%
+      filteredData <- combined_data %>%
         filter(STATE %in% selectedStates)
       
-      # Create the Plotly plot
       plot_ly(data = filteredData, x = ~ENROLL, y = ~TOTALREV, type = 'scatter', mode = 'markers',
               marker = list(size = 10), color = ~STATE) %>%
         layout(title = "Total Revenue vs. Enrollment by State",
@@ -62,7 +34,7 @@ server <- function(input, output, session) {
     selectedColumn <- input$demographicSelect
     if(is.null(selectedColumn)) return(NULL)
     
-    plot_ly(data = result, x = ~STATE, y = as.formula(paste0("~`", selectedColumn, "`")),
+    plot_ly(data = combined_data, x = ~STATE, y = as.formula(paste0("~`", selectedColumn, "`")),
             type = 'bar', color = ~STATE, text = ~paste(selectedColumn, ":", .data[[selectedColumn]])) %>%
       layout(title = paste("State-wise", selectedColumn))
   })
@@ -71,7 +43,7 @@ server <- function(input, output, session) {
     req(input$stateSelect1)
     selectedState <- input$stateSelect1[1]
     
-    summaryInfo <- result %>%
+    summaryInfo <- combined_data %>%
       filter(STATE == selectedState) %>%
       summarise(
         AvgMaleFemaleRatio = mean(male_female_ratio, na.rm = TRUE),
