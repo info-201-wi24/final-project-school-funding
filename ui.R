@@ -41,6 +41,7 @@ viz_2_tab <- tabPanel("Funding by Demographics",
 
 viz_3_sidebar <- sidebarPanel(
   #selectInput()
+  #selectInput()
 )
 
 viz_3_main_panel <- mainPanel(
